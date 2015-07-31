@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  h1 Signup
+  form(action="/teleComics/signup", method="post")
+   label(for="email") Enter Your Email: 
+   input(type="text" name="email" id="email")
+   p 
+   label(id="password") Enter Your Password: 
+   input(type="password" name="password" id="password")
+   p
+   input(type="submit" value="Signup")

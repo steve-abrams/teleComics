@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  if(!currentUser)
+    h1 Login
+    form(action="/teleComics/login", method="post")
+      label(for="email") Enter Your Email: 
+      input(type="text" name="email" id="email")
+      p 
+      p= message
+      label(id="password") Enter Your Password: 
+      input(type="password" name="password" id="password")
+      p= statement
+      input(type="submit", value="Login")
+    p
+    a(href="/teleComics/signup") Signup
+  
+  if(currentUser)
+    h1 hdfiugkengohger
+    form(action="/teleComics/logout", method="post")
+      input(type="submit", name="logout", id="logout", value="Logout!")
