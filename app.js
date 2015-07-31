@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var flash = require('connect-flash');
 
-require('dovenv').load();
+require('dotenv').load();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -31,8 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.session({ cookie: { maxAge: 60000 }}));
-app.use(flash());
+
 
 
 
