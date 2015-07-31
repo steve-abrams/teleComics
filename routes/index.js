@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt= require('bcrypt');
 var db = require('monk')(process.env.MONGOLAB_URI);
 var users = db.get('users');
 var paneCollection = db.get('panes');
@@ -7,10 +8,13 @@ var blurbs = db.get('blurbs');
 var comics = db.get('comics');
 var helpers = require('../lib/logic');
 
-//INDEX (home page)
 router.get('/', function(req, res, next) {
-  res.redirect('/telecomics/new');
+  console.log(res.locals);
+  res.render('users/login');
 });
+
+//INDEX (home page)
+
 
 router.get('/telecomics',function (req, res, next) {
   res.render('index');
@@ -41,4 +45,5 @@ router.post('/telecomics', function (req, res, next) {
     })
   });
 })
+
 module.exports = router;
