@@ -1,0 +1,21 @@
+label(for='title') Title:
+p
+  input#title(type='text' name='title' value=(data ? data.title : ''))
+label(for='pane1') First Pane:
+p
+  input#pane1(type='url' name='pane1' value=(data ? data.pane1 : ''))
+label(for='pane2') Second Pane:
+p
+  input#pane2(type='url' name='pane2' value=(data ? data.pane2 : ''))
+label(for='pane3') Third Pane:
+p
+  input#pane1(type='url' name='pane3' value=(data ? data.pane3 : ''))
+label(for='comment1') First Blurb:
+p
+  textarea#comment1(name='comment1' )= data.comment1
+label(for='comment2') Second Blurb:
+p
+  textarea#comment2(name='comment2' )= data.comment2
+label(for='comment3') Third Blurb:
+p
+  textarea#comment3(name='comment3' )= data.comment3
