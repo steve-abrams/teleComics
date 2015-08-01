@@ -47,7 +47,6 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/', auth);
 app.use(function (req, res, next) {
-  console.log('SFHOUEHFOESHFOUSHUEHFOUSEHF')
     if (req.session.user){
       next()
     } else{

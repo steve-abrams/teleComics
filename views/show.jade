@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= comic.title
+  div#comic.row
+    div.collum
+      div.pane
+        img.paneImage(src=panes[0].imageSource)
+      div.comment=blurbs[0].blurb
+    div.collum
+      div.pane
+        img.paneImage(src=panes[1].imageSource)
+      div.comment=blurbs[1].blurb
+    div.collum
+      div.pane
+        img.paneImage(src=panes[2].imageSource)
+      div.comment=blurbs[2].blurb
