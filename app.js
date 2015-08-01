@@ -7,11 +7,13 @@ var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var flash = require('connect-flash');
 
+
 require('dotenv').load();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
+var telecomics = require('./routes/telecomics');
 
 var app = express();
 app.set('trust proxy', 1);
@@ -35,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var setEmailLocal = function (req, res, next) {
   res.locals.currentUser = req.session.user;
-  //console.log(req.session.user);
+  // console.log(req.session.user, '!!!!!!!!!!!!');
   next();
 };
 
@@ -44,6 +46,15 @@ app.use(setEmailLocal);
 app.use('/', routes);
 app.use('/users', users);
 app.use('/', auth);
+app.use(function (req, res, next) {
+  console.log('SFHOUEHFOESHFOUSHUEHFOUSEHF')
+    if (req.session.user){
+      next()
+    } else{
+      res.redirect('/')
+    }
+})
+app.use('/', telecomics)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

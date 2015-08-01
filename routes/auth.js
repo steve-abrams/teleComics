@@ -19,6 +19,7 @@ router.post('/teleComics/login', function(req, res, next){
   users.findOne({email:req.body.email}, function(err, data){
     if(data){
       req.session.user=req.body.email;
+      req.session.uId=data._id
       var compare=data.password;
       var user=data.email;
       var statement;
