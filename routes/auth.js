@@ -11,7 +11,15 @@ router.get('/teleComics/signup', function(req, res, next) {
 
 router.post('/teleComics/signup', function(req, res, next){
   var hash=bcrypt.hashSync(req.body.password, 8);
-  users.insert({email:req.body.email, password:hash});
+  users.findOne({email: req.body.email}).then(function (user) {
+    if (user && !user.password) {
+      console.log(user);
+        users.update({_id: user._id}, {$set: {password: hash}})
+
+    } else {
+      users.insert({email:req.body.email, password:hash});
+    }
+  });
   res.redirect('/');
 });
 

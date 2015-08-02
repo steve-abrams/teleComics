@@ -5,17 +5,20 @@ block content
   div#comic.row
     div.collum
       div.pane
-        img.paneImage(src=panes[0].imageSource)
-      div.comment=panes[0].comment
+        img.paneImage(src=comic.panes[0].imageSource)
+      div.comment=comic.panes[0].comment
     div.collum
       div.pane
-        img.paneImage(src=panes[1].imageSource)
-      div.comment=panes[1].comment
+        img.paneImage(src=comic.panes[1].imageSource)
+      div.comment=comic.panes[1].comment
     div.collum
       div.pane
-        img.paneImage(src=panes[2].imageSource)
-      div.comment=panes[2].comment
+        img.paneImage(src=comic.panes[2].imageSource)
+      div.comment=comic.panes[2].comment
   form(action='/telecomics/'+comic._id+'/send' method='post')
+    if error
+     ul
+      li= error
     label(for='recipients') Recipents:
     p Enter one e-mail per line
     p
