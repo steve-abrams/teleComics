@@ -1,10 +1,14 @@
 var title = document.querySelector('input')
-var panes = document.querySelectorAll('input')
+var panesAll = document.querySelectorAll('input')
 var comments = document.querySelectorAll('textarea')
 var paneRender = document.getElementsByClassName('pane')
 var commentRender = document.getElementsByClassName('comment')
+var panes = []
+for (var i = 1; i < 4; i++) {
+  panes.push(panesAll[i])
+}
 
-panes = Array.prototype.splice.call(panes,1,3)
+// panes = Array.prototype.splice.call(panes,1,3)
 
 
 document.body.addEventListener('change', function (e) {

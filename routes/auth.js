@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('monk')('localhost/teleComics');
+var db = require('monk')(process.env.MONGOLAB_URI);
 var users = db.get('users');
 var bcrypt= require('bcrypt');
 

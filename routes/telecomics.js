@@ -75,7 +75,7 @@ router.post('/telecomics/:id/send',function (req, res, next) {
     return paneCollection.find({_id: {$in: comic.panes}})
   }).then(function (panes) {
     paneMaster = panes
-    // console.log('panes found')
+    console.log('panes found')
     var paneBlurbs = [];
     for (var i = 0; i < panes.length; i++) {
       paneBlurbs.push(helpers.telephoneTranslate(panes[i].comment));
