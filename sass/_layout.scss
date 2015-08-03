@@ -1,0 +1,53 @@
+body {
+  padding: 0px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.row {
+
+}
+
+.collum {
+  display: inline-block;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 33%
+}
+
+.container {
+  margin: 0 auto;
+  padding: 5px;
+  max-width: 960px;
+}
+
+.title {
+  text-align: center;
+}
+
+.pane {
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 5px;
+  height: 300px;
+  border: 1px solid black;
+}
+.comment {
+  height: 100px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.paneImage {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#comic {
+
+}

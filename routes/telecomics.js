@@ -77,9 +77,9 @@ router.post('/telecomics/:id/send',function (req, res, next) {
         users.update({_id: req.session.uId}, {$push: {sent: record._id}})
         users.findOne({_id: req.session.uId}).then(function (user) {
           console.log('attempting email')
-          var email     = new sendgrid.Email({
-          from:     'telecomics1@gmail.com',
+          var email = new sendgrid.Email({
           to: 'steven.abrams86@gmail.com',
+          from:     'telecomics1@gmail.com',
           subject:  comicMaster.title,
           text:     'view your teleocomic online at /telecomics/' + record._id
           });

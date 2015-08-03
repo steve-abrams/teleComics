@@ -6,8 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var flash = require('connect-flash');
-var sendgrid  = require('sendgrid')('telecomics', 'juststeveit1');
-
+var sendgrid = require('sendgrid')('telecomics', 'juststeveit1');
 
 require('dotenv').load();
 
