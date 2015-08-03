@@ -33,6 +33,31 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/telecomics/recieved', function (req, res, next) {
+  users.findOne({_id: req.session.uId}).then(function (user) {
+   return transcomics.find({_id:{$in:user.received}});
+  }).then(function (transcomicsArray) {
+    var transpromises = transcomicsArray.map(function (transcomic, i) {
+      return comics.findOne({_id:transcomic.comicId});
+    });
+    console.log(transpromises);
+    Promise.all(transpromises).then(function (comicMaster) {
+      console.log(comicMaster);
+      // then(function(comic) {
+      //   console.log(comic);
+      //   comicMaster[i] = comic;
+      for (var i = 0; i < transcomicsArray.length; i++) {
+        comicMaster[i].blurbs = transcomicsArray[i].blurbs;
+      }
+
+      //});
+      comicMaster.reverse();
+      console.log('in trans!', comicMaster);
+      res.render('recieved', {comics: comicMaster});
+    });
+  });
+});
+
 //INDEX (home page)
 
 
