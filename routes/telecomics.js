@@ -6,7 +6,7 @@ var users = db.get('users');
 var comics = db.get('comics');
 var transcomics = db.get('transcomics');
 var helpers = require('../lib/logic');
-var sendgrid  = require('sendgrid')('telecomics', 'juststeveit1');
+var sendgrid = require('sendgrid')(process.env.SENDGRIDUSERNAME, process.env.SENDGRIDPW);
 
 var bt = require('bing-translate').init({
     client_id: process.env.TRANSLATE_ID,
@@ -14,6 +14,13 @@ var bt = require('bing-translate').init({
   });
 
 router.get('/telecomics',function (req, res, next) {
+  sendgrid.send({
+    subject:  'Hello World',
+    text:     'My blah blah email through SendGrid.'
+  }, function(err, json) {
+    if (err) { return console.error(err); }
+    console.log(json);
+  });
   res.redirect('/');
 })
 
