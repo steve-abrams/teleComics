@@ -1,32 +1,32 @@
 div.row.title
-  label(for='title') Title:
+  label(for='title') Title
   p
     input#title(type='text' name='title' value=(data ? data.title : ''))
 div.row
   div.collum
-    label(for='pane1') First Pane:
+    label(for='pane1') First Pane
     p
       input#pane1.panes(type='url' name='pane1' value=(data ? data.pane1 : ''))  
   div.collum
-    label(for='pane2') Second Pane:
+    label(for='pane2') Second Pane
     p
       input#pane2.panes(type='url' name='pane2' value=(data ? data.pane2 : ''))
   div.collum
-    label(for='pane3') Third Pane:
+    label(for='pane3') Third Pane
     p
       input#pane3.panes(type='url' name='pane3' value=(data ? data.pane3 : ''))
 div.row
   div.collum    
-    label(for='comment1') First Blurb:
+    label(for='comment1') First Blurb
     p
-      textarea#comment1.comments(name='comment1' )= data && data.comment1
+      textarea#comment1.comments(name='comment1' rows='4')= data && data.comment1
   div.collum
-    label(for='comment2') Second Blurb:
+    label(for='comment2') Second Blurb
     p
-      textarea#comment2.comments(name='comment2' )= data && data.comment2
+      textarea#comment2.comments(name='comment2' rows='4')= data && data.comment2
   div.collum
-    label(for='comment3') Third Blurb:
+    label(for='comment3') Third Blurb
     p
-      textarea#comment3.comments(name='comment3' )= data && data.comment3
+      textarea#comment3.comments(name='comment3' rows='4')= data && data.comment3
 
       

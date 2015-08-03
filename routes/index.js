@@ -52,7 +52,7 @@ router.get('/', function(req, res, next) {
       })
       console.log(comicMaster, "comicfind")
       res.render('users/login', {comics: comicMaster});
-    })  
+    })
   }
 });
 
@@ -74,7 +74,7 @@ router.get('/telecomics/recieved', function (req, res, next) {
   });
 });
 
-router.get('/telecomics/:id', function (req, res, next) {
+router.get('/telecomics/:id/public', function (req, res, next) {
   var comicMaster;
   transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
     // console.log(transcomic);

@@ -2,8 +2,8 @@ extends ../layout
 
 block content
   if(!currentUser)
-    h1 Login
-    form(action="/teleComics/login", method="post")
+    h1 TeleComics
+    form.login(action="/teleComics/login", method="post")
       label(for="email") Enter Your Email: 
       input(type="text" name="email" id="email")
       p 
@@ -32,12 +32,12 @@ block content
             div.comment=comic.blurbs[2]
   
   if(currentUser)
+    h1 Your Sent Telecomics
     a(href='/telecomics/new') Create new Telecomic!
     p
     a(href='/telecomics/view/created') My Comics!
     p
     a(href='/telecomics/recieved') Recieved Telecomics!
-    h1 Your Sent Telecomics
       each comic in comics
         h2= comic.title
         a(href="/telecomics/"+comic._id)

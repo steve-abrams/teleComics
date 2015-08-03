@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1= comic.title
+  if currentUser
+    a(href='/') Back Home
   div#comic.row
     div.collum
       div.pane

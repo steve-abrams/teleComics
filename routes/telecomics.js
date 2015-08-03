@@ -75,8 +75,10 @@ router.post('/telecomics/:id/send',function (req, res, next) {
         })
         users.update({_id: req.session.uId}, {$push: {sent: record._id}})
         users.findOne({_id: req.session.uId}).then(function (user) {
-          var email     = new sendgrid.Email({
-          from: user.email,
+          console.log('attempting email')
+          var email = new sendgrid.Email({
+          to: 'steven.abrams86@gmail.com',
+          from:     'telecomics1@gmail.com',
           subject:  comicMaster.title,
           text:     'view your teleocomic online at /telecomics/' + record._id
           });
@@ -142,4 +144,18 @@ router.get('/telecomics/:id/resend', function (req, res, next) {
   })
 })
 
+router.get('/telecomics/:id', function (req, res, next) {
+  var comicMaster;
+  transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
+    // console.log(transcomic);
+    comicMaster = transcomic;
+    return comics.findOne({_id: transcomic.comicId});
+  }).then(function (comic) {
+    // console.log(comic);
+    comicMaster.panes = comic.panes;
+    comicMaster.title = comic.title;
+    // console.log(comicMaster);
+    res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
+  });
+});
   module.exports=router;
