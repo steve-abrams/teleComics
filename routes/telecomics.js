@@ -81,7 +81,7 @@ router.post('/telecomics/:id/send',function (req, res, next) {
           subject:  comicMaster.title,
           text:     'view your teleocomic online at /telecomics/' + record._id
           });
-          email.setHtml('<p>You have been sent a TeleComic!!!!!</p><p><a href="'process.env.HOST+'/telecomics/'+record._id+'">View your comic</a></p>')
+          email.setHtml('<p>You have been sent a TeleComic!!!!!</p><p><a href="'+process.env.HOST+'/telecomics/'+record._id+'">View your comic</a></p>')
           email.setTos(record.sentTo)
           sendgrid.send(email, function(err, json) {
             if (err) { return console.error(err); }
