@@ -117,21 +117,6 @@ router.get('/telecomics/created', function (req, res, next) {
   })
 })
 
-// router.get('/telecomics/:id', function (req, res, next) {
-//   var comicMaster;
-//   transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
-//     // console.log(transcomic);
-//     comicMaster = transcomic;
-//     return comics.findOne({_id: transcomic.comicId});
-//   }).then(function (comic) {
-//     // console.log(comic);
-//     comicMaster.panes = comic.panes;
-//     comicMaster.title = comic.title;
-//     // console.log(comicMaster);
-//     res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
-//   });
-// });
-
 router.get('/telecomics/:id/edit', function(req, res, next) {
   comics.findOne({_id: req.params.id}).then(function (comic) {
     var data = {
