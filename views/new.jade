@@ -5,7 +5,7 @@ block head
 block content
   if errors
     include _errors
-  form(action='/telecomics' method='post')
+  form.newform(action='/telecomics' method='post')
     include _comicform
-    input(type='submit' value='Create')
+    input.submit(type='submit' value='Create')
   include _comic

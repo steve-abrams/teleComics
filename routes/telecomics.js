@@ -13,7 +13,7 @@ var bt = require('bing-translate').init({
     client_secret: process.env.TRANSLATE_SECRET
   });
 
-router.get('/telecomics',function (req, res, next) {
+router.get('/telecomics', function (req, res, next) {
   sendgrid.send({
     subject:  'Hello World',
     text:     'My blah blah email through SendGrid.'
@@ -153,4 +153,18 @@ router.get('/telecomics/:id/resend', function (req, res, next) {
   })
 })
 
+router.get('/telecomics/:id', function (req, res, next) {
+  var comicMaster;
+  transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
+    // console.log(transcomic);
+    comicMaster = transcomic;
+    return comics.findOne({_id: transcomic.comicId});
+  }).then(function (comic) {
+    // console.log(comic);
+    comicMaster.panes = comic.panes;
+    comicMaster.title = comic.title;
+    // console.log(comicMaster);
+    res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
+  });
+});
   module.exports=router;

@@ -1,11 +1,15 @@
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+h1 {
+  text-align: center;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: $black;
 }
 
 .row {
@@ -16,7 +20,9 @@ a {
   display: inline-block;
   box-sizing: border-box;
   overflow: hidden;
-  width: 33%
+  width: 33%;
+  text-align: center;
+  vertical-align: top;
 }
 
 .container {
@@ -34,12 +40,17 @@ a {
   overflow: hidden;
   margin: 5px;
   height: 300px;
-  border: 1px solid black;
+  border: 3px solid $black;
 }
 .comment {
-  height: 100px;
+  text-align: center;
+  font-size: 1.2em;
+  font-family: "Shadows Into Light Two", sans-serif;
+  font-weight: bold;
+  height: 100%;
+  max-height: 100px;
+  overflow-y: auto;
   margin: 5px;
-  border: 1px solid black;
 }
 
 .paneImage {

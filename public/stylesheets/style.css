@@ -1,53 +1,166 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Marvel:400,700);
+@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+  text-align: center; }
+
+h1 {
+  text-align: center; }
 
 a {
   text-decoration: none;
-  color: black;
-}
-
-.row {
-
-}
+  color: #0F0F0F; }
 
 .collum {
   display: inline-block;
   box-sizing: border-box;
   overflow: hidden;
-  width: 33%
-}
+  width: 33%;
+  text-align: center;
+  vertical-align: top; }
 
 .container {
   margin: 0 auto;
   padding: 5px;
-  max-width: 960px;
-}
+  max-width: 960px; }
 
 .title {
-  text-align: center;
-}
+  text-align: center; }
 
 .pane {
   box-sizing: border-box;
   overflow: hidden;
   margin: 5px;
   height: 300px;
-  border: 1px solid black;
-}
+  border: 3px solid #0F0F0F; }
+
 .comment {
-  height: 100px;
-  margin: 5px;
-  border: 1px solid black;
-}
+  text-align: center;
+  font-size: 1.2em;
+  font-family: "Shadows Into Light Two", sans-serif;
+  font-weight: bold;
+  height: 100%;
+  max-height: 100px;
+  overflow-y: auto;
+  margin: 5px; }
 
 .paneImage {
   height: 100%;
   width: 100%;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
-#comic {
+html {
+  font-size: 1em; }
 
-}
+body {
+  background-color: #CDD3D5;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #333; }
+
+p {
+  margin-bottom: 1.3em; }
+
+h1, h2, h3, h4 {
+  color: #0F0F0F;
+  font-family: 'Marvel', sans-serif;
+  margin: 1.414em 0 0.5em;
+  font-weight: inherit;
+  line-height: 1.2; }
+
+h1 {
+  margin-top: 0;
+  font-size: 2.441em; }
+
+h2 {
+  font-size: 1.953em; }
+
+h3 {
+  font-size: 1.563em; }
+
+h4 {
+  font-size: 1.25em; }
+
+small, .font_small {
+  font-size: 0.8em; }
+
+a:hover {
+  text-decoration: underline; }
+
+a {
+  font-weight: bold; }
+
+.panes {
+  width: 100%;
+  padding: 5px;
+  margin: 5px; }
+
+.comments {
+  width: 100%;
+  padding: 5px;
+  margin: 5px; }
+
+#title {
+  width: 300px; }
+
+.submit {
+  text-align: center;
+  font-size: 24px;
+  width: 100px;
+  height: 30px; }
+
+.error {
+  color: red; }
+
+.newform {
+  text-align: center; }
