@@ -18,23 +18,23 @@ var bt = require('bing-translate').init({
 // });
 //
 
-var emailHTML = '<h1>A Ode to Parties</h1><div class="row"><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/WUO7erU.jpg" style="display:block;height: 300px;width: 300px;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">No matches.</div></div><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/Y3RAlLy.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">And the crowd.</div></div><div style="  display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="  box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/hnNFlnu.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">Boring days</div></div></div>'
-var email     = new sendgrid.Email({
-from:     'telecomics1@gmail.com',
-subject:  'HTML TEST email',
-text:     'view your teleocomic online at blah blah blah'
-});
+// var emailHTML = '<h1>A Ode to Parties</h1><div class="row"><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/WUO7erU.jpg" style="display:block;height: 300px;width: 300px;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">No matches.</div></div><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/Y3RAlLy.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">And the crowd.</div></div><div style="  display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="  box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/hnNFlnu.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">Boring days</div></div></div>'
+// var email     = new sendgrid.Email({
+// from:     'telecomics1@gmail.com',
+// subject:  'HTML TEST email',
+// text:     'view your teleocomic online at blah blah blah'
+// });
 
-
-email.setHtml(emailHTML);
-
-email.setTos(['claar.zack@gmail.com','mljung02@gmail.com']);
-
-sendgrid.send(email, function(err, json) {
-  if (err) { return console.error(err); }
-  console.log(json);
-});
-
+//
+// email.setHtml(emailHTML);
+//
+// // email.setTos(['claar.zack@gmail.com','mljung02@gmail.com']);
+//
+// sendgrid.send(email, function(err, json) {
+//   if (err) { return console.error(err); }
+//   console.log(json);
+// });
+//
 
 router.get('/telecomics',function (req, res, next) {
   res.redirect('/');
@@ -98,8 +98,8 @@ router.post('/telecomics/:id/send',function (req, res, next) {
         users.update({_id: req.session.uId}, {$push: {sent: record._id}})
         console.log(record)
 
-        
-        
+
+
         res.redirect('/telecomics/'+record._id);
       });
     });
@@ -149,4 +149,3 @@ router.post('/telecomics/:id/delete', function (req, res, next) {
 });
 
   module.exports=router;
-
