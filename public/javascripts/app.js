@@ -1,7 +1,7 @@
 var title = document.querySelector('input')
 var panesAll = document.querySelectorAll('input')
 var comments = document.querySelectorAll('textarea')
-var paneRender = document.getElementsByClassName('pane')
+var paneRender = document.getElementsByClassName('paneImage')
 var commentRender = document.getElementsByClassName('comment')
 var panes = []
 for (var i = 1; i < 4; i++) {
@@ -13,11 +13,7 @@ for (var i = 1; i < 4; i++) {
 
 document.body.addEventListener('change', function (e) {
   if (e.target.className === 'panes') {
-    var img = document.createElement('img');
-    img.src = e.target.value
-    img.className = 'paneImage'
-    console.log(e.target.id[4]);
-    paneRender[e.target.id[4] - 1].appendChild(img)
+    paneRender[e.target.id[4] - 1].src = e.target.value;
   }
 })
 

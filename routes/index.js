@@ -10,22 +10,25 @@ var transcomics = db.get('transcomics')
 var helpers = require('../lib/logic');
 
 router.get('/', function(req, res, next) {
-  // console.log(req.session)
+  console.log(req.session)
   // res.render('users/login')
   var comicMaster = {};
-  comics.find({owner_id: req.session.uId}).then(function (comics) {
-    var comicIds = comics.map(function (comic) {
-      return comic._id.toString()
+  transcomics.find({owner: req.session.uId}).then(function (telecomics) {
+    var comicIds = telecomics.map(function (comic) {
+      return comic.comicId
     })
-    console.log(comicIds)
-    comicMaster = comics;
-    return transcomics.find({comicId: {$in: comicIds}})
-  }).then(function (transcomicsArray) {
-    comicMaster.forEach(function (comic, i) {
-      comic.blurbs = transcomicsArray[i].blurbs;
+    console.log(comicIds, "telefind!")
+    var promiseArray = []
+    comicIds.forEach(function (comicId) {
+      promiseArray.push(comics.findOne({_id: comicId}))
     })
-    comicMaster.reverse()
-    console.log('in trans!', comicMaster);
+    comicMaster = telecomics
+    return Promise.all(promiseArray)
+  }).then(function (comicsArray) {
+    comicMaster.forEach(function (ele, i) {
+      ele.panes = comicsArray[i].panes
+    })
+    console.log(comicMaster, "comicfind")
     res.render('users/login', {comics: comicMaster});
   })
 });

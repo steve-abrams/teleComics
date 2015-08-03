@@ -17,22 +17,23 @@ block content
   
   if(currentUser)
     a(href='/telecomics/new') Create new Telecomic!
-    h1 Your Created Telecomics
+    h1 Your Sent Telecomics
       each comic in comics
         h2= comic.title
-        div#comic.row
-          div.collum
-            div.pane
-              img.paneImage(src=comic.panes[0].imageSource)
-            div.comment=comic.blurbs[0]
-          div.collum
-            div.pane
-              img.paneImage(src=comic.panes[1].imageSource)
-            div.comment=comic.blurbs[1]
-          div.collum
-            div.pane
-              img.paneImage(src=comic.panes[2].imageSource)
-            div.comment=comic.blurbs[2]
+        a(href="/telecomics/"+comic._id)
+          div#comic.row
+            div.collum
+              div.pane
+                img.paneImage(src=comic.panes[0].imageSource)
+              div.comment=comic.blurbs[0]
+            div.collum
+              div.pane
+                img.paneImage(src=comic.panes[1].imageSource)
+              div.comment=comic.blurbs[1]
+            div.collum
+              div.pane
+                img.paneImage(src=comic.panes[2].imageSource)
+              div.comment=comic.blurbs[2]
     
     
     form(action="/teleComics/logout", method="post")

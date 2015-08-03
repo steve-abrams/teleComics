@@ -1,10 +1,28 @@
-div#comic.row
-  div.collum
-    div.pane
-    div.comment
-  div.collum
-    div.pane
-    div.comment
-  div.collum
-    div.pane
-    div.comment
+if data
+  div#comic.row
+    div.collum
+      div.pane
+        img.paneImage(src=data.pane1)
+      div.comment= data.comment1
+    div.collum
+      div.pane
+        img.paneImage(src=data.pane2)
+      div.comment= data.comment2
+    div.collum
+      div.pane
+        img.paneImage(src=data.pane3)
+      div.comment= data.comment3
+else
+  div#comic.row
+    div.collum
+      div.pane
+        img.paneImage
+      div.comment
+    div.collum
+      div.pane
+        img.paneImage
+      div.comment
+    div.collum
+      div.pane
+        img.paneImage
+      div.comment

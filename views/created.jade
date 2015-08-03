@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 Your Created Telecomics
+    each comic in comics
+      h2= comic.title
+      a(href="/telecomics/"+comic._id+"/preview")
+        div#comic.row
+          div.collum
+            div.pane
+              img.paneImage(src=comic.panes[0].imageSource)
+            div.comment=comic.panes[0].comment
+          div.collum
+            div.pane
+              img.paneImage(src=comic.panes[1].imageSource)
+            div.comment=comic.panes[1].comment
+          div.collum
+            div.pane
+              img.paneImage(src=comic.panes[2].imageSource)
+            div.comment=comic.panes[2].comment
