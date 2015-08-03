@@ -148,4 +148,26 @@ router.post('/telecomics/:id/delete', function (req, res, next) {
   res.redirect('/');
 });
 
+router.get('/telecomics/:id/resend', function (req, res, next) {
+  transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
+    console.log(transcomic);
+    comics.findOne({_id: transcomic.comicId}).then(function (comic) {
+      console.log(comic);
+
+      var data = {
+        title: comic.title,
+        pane1: comic.panes[0].imageSource,
+        pane2: comic.panes[1].imageSource,
+        pane3: comic.panes[2].imageSource,
+        comment1: transcomic.blurbs[0],
+        comment2: transcomic.blurbs[1],
+        comment3: transcomic.blurbs[2],
+      };
+      console.log(data);
+
+      res.render('new', {data: data});
+    })
+  })
+})
+
   module.exports=router;
