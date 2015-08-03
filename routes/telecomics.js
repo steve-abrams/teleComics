@@ -98,4 +98,24 @@ router.get('/telecomics/:id', function (req, res, next) {
   });
 });
 
-module.exports=router
+router.get('/telecomics/:id/edit', function(req, res, next) {
+  comics.findOne({_id: req.params.id}).then(function (comic) {
+    var data = {
+      title: comic.title,
+      pane1: comic.panes[0].imageSource,
+      pane2: comic.panes[1].imageSource,
+      pane3: comic.panes[2].imageSource,
+      comment1: comic.panes[0].comment,
+      comment2: comic.panes[1].comment,
+      comment3: comic.panes[2].comment,
+    };
+    res.render('edit', {data: data, id:req.params.id});
+  });
+});
+
+router.post('/telecomics/:id/delete', function (req, res, next) {
+  comics.remove({_id:req.params.id});
+  res.redirect('/');
+});
+
+  module.exports=router;

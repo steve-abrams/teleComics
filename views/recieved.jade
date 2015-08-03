@@ -1,4 +1,4 @@
-extends ../layout
+extends layout
 
 block content
   if(!currentUser)
@@ -18,8 +18,8 @@ block content
   if(currentUser)
     a(href='/telecomics/new') Create new Telecomic!
     p
-    a(href='/telecomics/recieved') Recieved Telecomics!
-    h1 Your Created Telecomics
+    a(href='/') Telecomics!
+    h1 Your Recieved Telecomics
       each comic in comics
         h2= comic.title
         div#comic.row

@@ -1,0 +1,15 @@
+extends layout
+
+block head
+  h1 Edit TeleComic
+block content
+  if errors
+    include _errors
+  form(action='/telecomics' method='post')
+    include _comicform
+    input(type='submit' value='Update')
+  include _comic
+  form(action="/telecomics/"+id+"/delete" method="post")
+    button(type="submit") Delete Comic
+block javascript 
+ script(src="/javascripts/comicload.js")
