@@ -23,18 +23,22 @@ var bt = require('bing-translate').init({
 // from:     'telecomics1@gmail.com',
 // subject:  'HTML TEST email',
 // text:     'view your teleocomic online at blah blah blah'
-// });
+// });x
 // 
 // 
 // email.setHtml(emailHTML);
 // 
 // email.setTos(['claar.zack@gmail.com','mljung02@gmail.com']);
 // 
+
+
 // sendgrid.send(email, function(err, json) {
 //   if (err) { return console.error(err); }
 //   console.log(json);
 // });
 // 
+
+
 
 router.get('/telecomics',function (req, res, next) {
   res.redirect('/');
@@ -98,8 +102,8 @@ router.post('/telecomics/:id/send',function (req, res, next) {
         users.update({_id: req.session.uId}, {$push: {sent: record._id}})
         console.log(record)
 
-        
-        
+
+
         res.redirect('/telecomics/'+record._id);
       });
     });
@@ -149,4 +153,3 @@ router.post('/telecomics/:id/delete', function (req, res, next) {
 });
 
   module.exports=router;
-
