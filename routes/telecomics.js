@@ -6,7 +6,7 @@ var users = db.get('users');
 var comics = db.get('comics');
 var transcomics = db.get('transcomics');
 var helpers = require('../lib/logic');
-var sendgrid = require('sendgrid')(process.env.SENDGRIDUSERNAME, process.env.SENDGRIDPW);
+var sendgrid = require('sendgrid')(process.env.SENDGRIDAPIKEY);
 
 var bt = require('bing-translate').init({
     client_id: process.env.TRANSLATE_ID,
@@ -14,13 +14,6 @@ var bt = require('bing-translate').init({
   });
 
 router.get('/telecomics',function (req, res, next) {
-  sendgrid.send({
-    subject:  'Hello World',
-    text:     'My blah blah email through SendGrid.'
-  }, function(err, json) {
-    if (err) { return console.error(err); }
-    console.log(json);
-  });
   res.redirect('/');
 })
 
@@ -78,21 +71,17 @@ router.post('/telecomics/:id/send',function (req, res, next) {
           userCreate.push(users.update({email: email}, {$set: {email: email}}, {upsert:true}))
         })
         Promise.all(userCreate).then(function () {
-          // console.log('helo', record._id, record.sentTo)
           users.update({email: {$in: record.sentTo}}, {$push: {received: record._id}}, {multi: true})
         })
         users.update({_id: req.session.uId}, {$push: {sent: record._id}})
         users.findOne({_id: req.session.uId}).then(function (user) {
-          console.log('attempting email')
           var email     = new sendgrid.Email({
-          from:     'telecomics1@gmail.com',
-          to: 'steven.abrams86@gmail.com',
+          from: user.email,
           subject:  comicMaster.title,
           text:     'view your teleocomic online at /telecomics/' + record._id
           });
-          // email.addTo('mljung02@gmail.com');
-          email.setHtml('<p>You have been sent a TeleComic!</p><p><a href="/telecomics/'+record._id+'">View your comic</a></p>')
-          console.log(email)
+          email.setHtml('<p>You have been sent a TeleComic!!!!!</p><p><a href="/telecomics/'+record._id+'">View your comic</a></p>')
+          email.setTos(record.sentTo)
           sendgrid.send(email, function(err, json) {
             if (err) { return console.error(err); }
             console.log(json);
