@@ -18,23 +18,23 @@ var bt = require('bing-translate').init({
 // });
 //
 
-var emailHTML = '<h1>A Ode to Parties</h1><div class="row"><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/WUO7erU.jpg" style="display:block;height: 300px;width: 300px;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">No matches.</div></div><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/Y3RAlLy.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">And the crowd.</div></div><div style="  display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="  box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/hnNFlnu.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">Boring days</div></div></div>'
-var email     = new sendgrid.Email({
-from:     'telecomics1@gmail.com',
-subject:  'HTML TEST email',
-text:     'view your teleocomic online at blah blah blah'
-});
-
-
-email.setHtml(emailHTML);
-
-email.setTos(['claar.zack@gmail.com','mljung02@gmail.com']);
-
-sendgrid.send(email, function(err, json) {
-  if (err) { return console.error(err); }
-  console.log(json);
-});
-
+// var emailHTML = '<h1>A Ode to Parties</h1><div class="row"><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/WUO7erU.jpg" style="display:block;height: 300px;width: 300px;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">No matches.</div></div><div style="display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/Y3RAlLy.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">And the crowd.</div></div><div style="  display: inline-block;box-sizing: border-box;overflow: hidden;width: 33%"><div style="  box-sizing: border-box;overflow: hidden;margin: 5px;height: 300px;border: 1px solid black;"><img src="http://i.imgur.com/hnNFlnu.jpg" style="display: block;height: 100%;width: 100%;overflow: hidden;"></div><div style="height: 100px;margin: 5px;border: 1px solid black;">Boring days</div></div></div>'
+// var email     = new sendgrid.Email({
+// from:     'telecomics1@gmail.com',
+// subject:  'HTML TEST email',
+// text:     'view your teleocomic online at blah blah blah'
+// });
+// 
+// 
+// email.setHtml(emailHTML);
+// 
+// email.setTos(['claar.zack@gmail.com','mljung02@gmail.com']);
+// 
+// sendgrid.send(email, function(err, json) {
+//   if (err) { return console.error(err); }
+//   console.log(json);
+// });
+// 
 
 router.get('/telecomics',function (req, res, next) {
   res.redirect('/');
@@ -113,20 +113,20 @@ router.get('/telecomics/created', function (req, res, next) {
   })
 })
 
-router.get('/telecomics/:id', function (req, res, next) {
-  var comicMaster;
-  transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
-    // console.log(transcomic);
-    comicMaster = transcomic;
-    return comics.findOne({_id: transcomic.comicId});
-  }).then(function (comic) {
-    // console.log(comic);
-    comicMaster.panes = comic.panes;
-    comicMaster.title = comic.title;
-    // console.log(comicMaster);
-    res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
-  });
-});
+// router.get('/telecomics/:id', function (req, res, next) {
+//   var comicMaster;
+//   transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
+//     // console.log(transcomic);
+//     comicMaster = transcomic;
+//     return comics.findOne({_id: transcomic.comicId});
+//   }).then(function (comic) {
+//     // console.log(comic);
+//     comicMaster.panes = comic.panes;
+//     comicMaster.title = comic.title;
+//     // console.log(comicMaster);
+//     res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
+//   });
+// });
 
 router.get('/telecomics/:id/edit', function(req, res, next) {
   comics.findOne({_id: req.params.id}).then(function (comic) {

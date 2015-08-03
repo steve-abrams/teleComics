@@ -10,27 +10,50 @@ var transcomics = db.get('transcomics')
 var helpers = require('../lib/logic');
 
 router.get('/', function(req, res, next) {
-  console.log(req.session)
-  // res.render('users/login')
-  var comicMaster = {};
-  transcomics.find({owner: req.session.uId}).then(function (telecomics) {
-    var comicIds = telecomics.map(function (comic) {
-      return comic.comicId
+  var comicMaster = {}
+  if (!req.session.uId) {
+    transcomics.find().then(function (telecomics) {
+      var comicIds = telecomics.map(function (comic) {
+        return comic.comicId
+      })
+      var promiseArray = []
+      comicIds.forEach(function (comicId) {
+        promiseArray.push(comics.findOne({_id: comicId}))
+      })
+      console.log(comicIds)
+      comicMaster = telecomics
+      return Promise.all(promiseArray)
+    }).then(function (comicsArray) {
+      console.log(comicsArray);
+      comicMaster.forEach(function (ele, i) {
+        ele.panes = comicsArray[i].panes
+      })
+      console.log(comicMaster, "comicfind")
+      comicMaster.reverse()
+      comicMaster = comicMaster.splice(0,10)
+      res.render('users/login', {comics: comicMaster});
     })
-    console.log(comicIds, "telefind!")
-    var promiseArray = []
-    comicIds.forEach(function (comicId) {
-      promiseArray.push(comics.findOne({_id: comicId}))
-    })
-    comicMaster = telecomics
-    return Promise.all(promiseArray)
-  }).then(function (comicsArray) {
-    comicMaster.forEach(function (ele, i) {
-      ele.panes = comicsArray[i].panes
-    })
-    console.log(comicMaster, "comicfind")
-    res.render('users/login', {comics: comicMaster});
-  })
+  } else {
+    var comicMaster = {};
+    transcomics.find({owner: req.session.uId}).then(function (telecomics) {
+      var comicIds = telecomics.map(function (comic) {
+        return comic.comicId
+      })
+      console.log(comicIds, "telefind!")
+      var promiseArray = []
+      comicIds.forEach(function (comicId) {
+        promiseArray.push(comics.findOne({_id: comicId}))
+      })
+      comicMaster = telecomics
+      return Promise.all(promiseArray)
+    }).then(function (comicsArray) {
+      comicMaster.forEach(function (ele, i) {
+        ele.panes = comicsArray[i].panes
+      })
+      console.log(comicMaster, "comicfind")
+      res.render('users/login', {comics: comicMaster});
+    })  
+  }
 });
 
 router.get('/telecomics/recieved', function (req, res, next) {
@@ -58,37 +81,19 @@ router.get('/telecomics/recieved', function (req, res, next) {
   });
 });
 
-//INDEX (home page)
-
-
-// router.get('/telecomics',function (req, res, next) {
-//   res.render('index');
-// })
-//
-// //NEW
-// router.get('/telecomics/new', function (req, res, next) {
-//   res.render('new');
-// })
-//
-// //CREATE
-// router.post('/telecomics', function (req, res, next) {
-//   var errors = helpers.validateComic(req.body);
-//   if (errors.length > 0){
-//     res.render("new", {errors: errors, data: req.body})
-//   }
-//   var panes = helpers.createPanes(req.body)
-//   paneCollection.insert(panes).then(function (panes) {
-//     var comic = {};
-//     comic.title = req.body.title;
-//     panes = panes.map(function (pane) {
-//       return pane._id;
-//     })
-//     comic.panes = panes;
-//     comic.date = Date.now();
-//     comics.insert(comic).then(function (comic) {
-//       res.redirect('/telecomics');
-//     })
-//   });
-// })
+router.get('/telecomics/:id', function (req, res, next) {
+  var comicMaster;
+  transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
+    // console.log(transcomic);
+    comicMaster = transcomic;
+    return comics.findOne({_id: transcomic.comicId});
+  }).then(function (comic) {
+    // console.log(comic);
+    comicMaster.panes = comic.panes;
+    comicMaster.title = comic.title;
+    // console.log(comicMaster);
+    res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
+  });
+});
 
 module.exports = router;
