@@ -23,18 +23,22 @@ var bt = require('bing-translate').init({
 // from:     'telecomics1@gmail.com',
 // subject:  'HTML TEST email',
 // text:     'view your teleocomic online at blah blah blah'
-// });
-
-//
+// });x
+// 
+// 
 // email.setHtml(emailHTML);
-//
-// // email.setTos(['claar.zack@gmail.com','mljung02@gmail.com']);
-//
+// 
+// email.setTos(['claar.zack@gmail.com','mljung02@gmail.com']);
+// 
+
+
 // sendgrid.send(email, function(err, json) {
 //   if (err) { return console.error(err); }
 //   console.log(json);
 // });
-//
+// 
+
+
 
 router.get('/telecomics',function (req, res, next) {
   res.redirect('/');
@@ -112,21 +116,6 @@ router.get('/telecomics/created', function (req, res, next) {
     res.render('created', {comics: data})
   })
 })
-
-router.get('/telecomics/:id', function (req, res, next) {
-  var comicMaster;
-  transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
-    // console.log(transcomic);
-    comicMaster = transcomic;
-    return comics.findOne({_id: transcomic.comicId});
-  }).then(function (comic) {
-    // console.log(comic);
-    comicMaster.panes = comic.panes;
-    comicMaster.title = comic.title;
-    // console.log(comicMaster);
-    res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
-  });
-});
 
 router.get('/telecomics/:id/edit', function(req, res, next) {
   comics.findOne({_id: req.params.id}).then(function (comic) {
