@@ -5,23 +5,32 @@ var users = db.get('users');
 var bcrypt= require('bcrypt');
 var comics = db.get('comics');
 var transcomics = db.get('transcomics');
-
+var helpers = require('../lib/logic');
 
 router.get('/teleComics/signup', function(req, res, next) {
    res.render('users/signup');
 });
 
 router.post('/teleComics/signup', function(req, res, next){
+  users.find({}, function(err, data){
+   var errorlist=(helpers.loginvalidate(req.body.email, req.body.password, data));
+   if(errorlist.length >0){
+     res.render('users/signup', {errorlist: errorlist});
+   }else{
   var hash=bcrypt.hashSync(req.body.password, 8);
   users.findOne({email: req.body.email}).then(function (user) {
     if (user && !user.password) {
       console.log(user);
         users.update({_id: user._id}, {$set: {password: hash}}).then(function (data) {
-          console.log(data)
+          console.log(data);
           req.session.user=req.body.email;
           req.session.uId=user._id;
           res.redirect('/');
+<<<<<<< HEAD
         })
+=======
+        });
+>>>>>>> e2de4811862867ad646b2bd622a8f0484251702c
     } else {
       users.insert({email:req.body.email, password:hash}).then(function (data) {
         req.session.user=req.body.email;
@@ -29,7 +38,9 @@ router.post('/teleComics/signup', function(req, res, next){
         res.redirect('/');
       });
     }
-  });
+   });
+  }
+ });
 });
 
 router.post('/teleComics/login', function(req, res, next){
