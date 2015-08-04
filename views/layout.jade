@@ -11,8 +11,8 @@ html
   body
     header
     if currentUser
-      nav(class="navbar navbar-default")
-        div(class="container-fluid")
+      nav(class="navbar navbar-inverse")
+        div(class="container-fluid container")
           div(class="navbar-header")
             button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
               span(class="sr-only") Toggle navigation
@@ -38,8 +38,8 @@ html
             form(class="navbar-form navbar-right" action='/telecomics/logout' method='post')
               button(type="submit" class="btn btn-default") Logout
     else
-      nav(class="navbar navbar-default")
-        div(class="container-fluid")
+      nav(class="navbar navbar-inverse")
+        div(class="container-fluid container")
           div(class="navbar-header")
             button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
               span(class="sr-only") Toggle navigation

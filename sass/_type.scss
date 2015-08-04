@@ -1,21 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700);
-@import url(http://fonts.googleapis.com/css?family=Marvel:400,700);
-@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+@import url(https://fonts.googleapis.com/css?family=Marvel:400,700);
+@import url(https://fonts.googleapis.com/css?family=Architects+Daughter);
 
 html {font-size: 1em;}
 
 body {
-  background-color: $lightgrey;
+  background-image: url('../images/tweed.png');
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
   line-height: 1.45;
-  color: #333;
+  color: $white;
 }
 
 p {margin-bottom: 1.3em;}
 
 h1, h2, h3, h4 {
-  color: $black;
+  color: $white;
   font-family: 'Marvel', sans-serif;
   margin: 1.414em 0 0.5em;
   font-weight: inherit;
@@ -37,7 +37,9 @@ small, .font_small {font-size: 0.8em;}
 
 a:hover {
   text-decoration: underline;
+  color: $lightgrey;
 }
 a {
   font-weight: bold;
+  color: $white;
 }

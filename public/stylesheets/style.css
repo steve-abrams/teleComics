@@ -3,8 +3,8 @@
    License: none (public domain)
 */
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700);
-@import url(http://fonts.googleapis.com/css?family=Marvel:400,700);
-@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+@import url(https://fonts.googleapis.com/css?family=Marvel:400,700);
+@import url(https://fonts.googleapis.com/css?family=Architects+Daughter);
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -86,7 +86,8 @@ a {
 .comment {
   text-align: center;
   font-size: 1.2em;
-  font-family: "Shadows Into Light Two", sans-serif;
+  font-family: "Architects Daughter", sans-serif;
+  letter-spacing: .1em;
   font-weight: bold;
   height: 100%;
   max-height: 100px;
@@ -96,7 +97,8 @@ a {
 .language {
   text-align: center;
   font-size: 1.2em;
-  font-family: "Shadows Into Light Two", sans-serif;
+  letter-spacing: .1em;
+  font-family: "Architects Daughter", sans-serif;
   font-weight: bold; }
 
 .paneImage {
@@ -111,17 +113,17 @@ html {
   font-size: 1em; }
 
 body {
-  background-color: #CDD3D5;
+  background-image: url("../images/tweed.png");
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
   line-height: 1.45;
-  color: #333; }
+  color: #FFFFFF; }
 
 p {
   margin-bottom: 1.3em; }
 
 h1, h2, h3, h4 {
-  color: #0F0F0F;
+  color: #FFFFFF;
   font-family: 'Marvel', sans-serif;
   margin: 1.414em 0 0.5em;
   font-weight: inherit;
@@ -144,10 +146,12 @@ small, .font_small {
   font-size: 0.8em; }
 
 a:hover {
-  text-decoration: underline; }
+  text-decoration: underline;
+  color: #CDD3D5; }
 
 a {
-  font-weight: bold; }
+  font-weight: bold;
+  color: #FFFFFF; }
 
 .panes {
   width: 100%;
@@ -166,10 +170,13 @@ a {
   text-align: center;
   font-size: 24px;
   width: 100px;
-  height: 30px; }
+  height: 50px; }
 
 .error {
   color: red; }
 
 .newform {
   text-align: center; }
+
+input, textarea {
+  color: #0F0F0F; }

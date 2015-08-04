@@ -17,7 +17,7 @@
   text-align: center;
   font-size: 24px;
   width: 100px;
-  height: 30px;
+  height: 50px;
 }
 
 .error {
@@ -25,4 +25,8 @@
 }
 .newform {
   text-align: center;
+}
+
+input, textarea {
+  color: $black;
 }
