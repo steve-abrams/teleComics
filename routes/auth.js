@@ -21,7 +21,7 @@ router.post('/teleComics/signup', function(req, res, next){
           req.session.user=req.body.email;
           req.session.uId=data._id;
           res.redirect('/');
-        })    
+        })
     } else {
       users.insert({email:req.body.email, password:hash}).then(function (data) {
         req.session.user=req.body.email;
@@ -34,7 +34,7 @@ router.post('/teleComics/signup', function(req, res, next){
 
 router.post('/teleComics/login', function(req, res, next){
   users.findOne({email:req.body.email}, function(err, data){
-    if(data){
+    if(data && data.password){
       var compare=data.password;
       var user=data.email;
       var statement;
@@ -62,7 +62,7 @@ router.post('/teleComics/login', function(req, res, next){
           console.log(comicMaster, "comicfind")
           statement="Password does not match";
           res.render('users/login', {comics: comicMaster, statement:statement});
-        })    
+        })
       }
     }
     else{
@@ -85,7 +85,7 @@ router.post('/teleComics/login', function(req, res, next){
         console.log(comicMaster, "comicfind")
         var message="Email does not exist";
         res.render('users/login', {comics: comicMaster, message:message});
-      }) 
+      })
     }
   });
 });
