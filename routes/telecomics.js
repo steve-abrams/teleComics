@@ -58,14 +58,21 @@ router.post('/telecomics/:id/send',function (req, res, next) {
     var comicMaster = {}
     comics.findOne({_id:req.params.id}).then(function (comic) {
       var paneBlurbs = [];
+      var languageRoutes = []
       for (var i = 0; i < comic.panes.length; i++) {
         paneBlurbs.push(helpers.telephoneTranslate(comic.panes[i].comment));
+        // languageRoutes.push(helpers.telephoneTranslate(comic.panes[i].comment).languageRoutes)
       }
       comicMaster = comic
       Promise.all(paneBlurbs).then(function (blurbs) {
-
-        return transcomics.insert({comicId: req.params.id, sentTo: emails, date: Date.now(), blurbs: blurbs, owner: req.session.uId});
+        blurbArray = []
+        blurbs.forEach(function (blurb) {
+          blurbArray.push(blurb.blurb)
+          languageRoutes.push(blurb.languageRoute)
+        });
+        return transcomics.insert({comicId: req.params.id, sentTo: emails, date: Date.now(), blurbs: blurbArray, languages: languageRoutes, owner: req.session.uId});
       }).then(function (record) {
+        console.log(record)
         var userCreate = [];
         record.sentTo.forEach(function (email) {
           userCreate.push(users.update({email: email}, {$set: {email: email}}, {upsert:true}))
@@ -153,8 +160,12 @@ router.get('/telecomics/:id', function (req, res, next) {
     // console.log(comic);
     comicMaster.panes = comic.panes;
     comicMaster.title = comic.title;
-    // console.log(comicMaster);
-    res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
+    console.log(comicMaster);
+    res.render('show', {comic:comicMaster, 
+      panes: comicMaster.panes, 
+      blurbs: comicMaster.blurbs, 
+      panes: comicMaster.panes, 
+      languages:comicMaster.languages});
   });
 });
   module.exports=router;

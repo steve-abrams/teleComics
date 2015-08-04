@@ -2,9 +2,9 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700);
-@import url(http://fonts.googleapis.com/css?family=Marvel:400,700);
-@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700);
+@import url(https://fonts.googleapis.com/css?family=Marvel:400,700);
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -92,6 +92,12 @@ a {
   max-height: 100px;
   overflow-y: auto;
   margin: 5px; }
+
+.language {
+  text-align: center;
+  font-size: 1.2em;
+  font-family: "Shadows Into Light Two", sans-serif;
+  font-weight: bold; }
 
 .paneImage {
   height: 100%;
