@@ -15,9 +15,12 @@ router.post('/teleComics/signup', function(req, res, next){
     if (user && !user.password) {
       console.log(user);
         users.update({_id: user._id}, {$set: {password: hash}})
-
+        req.session.user=req.body.email;
+        req.session.uId=data._id;
     } else {
       users.insert({email:req.body.email, password:hash});
+      req.session.user=req.body.email;
+      req.session.uId=data._id;
     }
   });
   res.redirect('/');
