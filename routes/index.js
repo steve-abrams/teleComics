@@ -56,8 +56,12 @@ router.get('/', function(req, res, next) {
   }
 });
 
-router.get('/telecomics/recieved', function (req, res, next) {
+router.get('/telecomics/received', function (req, res, next) {
   users.findOne({_id: req.session.uId}).then(function (user) {
+    if (!user.received || user.received.length < 1){
+      console.log('hello')
+      res.render('received', {empty: true})
+    }
    return transcomics.find({_id:{$in:user.received}});
   }).then(function (transcomicsArray) {
     var transpromises = transcomicsArray.map(function (transcomic, i) {
@@ -69,7 +73,7 @@ router.get('/telecomics/recieved', function (req, res, next) {
         comicMaster[i]._id = transcomicsArray[i]._id;
       }
       comicMaster.reverse();
-      res.render('recieved', {comics: comicMaster});
+      res.render('received', {comics: comicMaster});
     });
   });
 });

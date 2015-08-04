@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  if(!currentUser)
+    h1 Login
+    form(action="/teleComics/login", method="post")
+      label(for="email") Enter Your Email: 
+      input(type="text" name="email" id="email")
+      p 
+      p= message
+      label(id="password") Enter Your Password: 
+      input(type="password" name="password" id="password")
+      p= statement
+      input(type="submit", value="Login")
+    p
+    a(href="/teleComics/signup") Signup
+  
+  if(currentUser)
+    if(!empty)
+      a(href='/telecomics/new') Create new Telecomic!
+      p
+      a(href='/') Telecomics!
+      h1 Your Recieved Telecomics
+        each comic in comics
+          h2= comic.title
+          a(href='/telecomics/#{comic._id}/resend') Forward Comic
+          a(href='/telecomics/#{comic._id}')
+            div#comic.row
+              div.collum
+                div.pane
+                  img.paneImage(src=comic.panes[0].imageSource)
+                div.comment=comic.blurbs[0]
+              div.collum
+                div.pane
+                  img.paneImage(src=comic.panes[1].imageSource)
+                div.comment=comic.blurbs[1]
+              div.collum
+                div.pane
+                  img.paneImage(src=comic.panes[2].imageSource)
+                div.comment=comic.blurbs[2]
+      
+    
+    form(action="/teleComics/logout", method="post")
+      input(type="submit", name="logout", id="logout", value="Logout!")

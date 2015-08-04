@@ -16,16 +16,20 @@ router.post('/teleComics/signup', function(req, res, next){
   users.findOne({email: req.body.email}).then(function (user) {
     if (user && !user.password) {
       console.log(user);
-        users.update({_id: user._id}, {$set: {password: hash}})
-        req.session.user=req.body.email;
-        req.session.uId=data._id; 
+        users.update({_id: user._id}, {$set: {password: hash}}).then(function (data) {
+          console.log(data)
+          req.session.user=req.body.email;
+          req.session.uId=data._id;
+          res.redirect('/');
+        })    
     } else {
-      users.insert({email:req.body.email, password:hash});
-      req.session.user=req.body.email;
-      req.session.uId=data._id;
+      users.insert({email:req.body.email, password:hash}).then(function (data) {
+        req.session.user=req.body.email;
+        req.session.uId=data._id;
+        res.redirect('/');
+      });
     }
   });
-  res.redirect('/');
 });
 
 router.post('/teleComics/login', function(req, res, next){

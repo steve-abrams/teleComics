@@ -102,7 +102,6 @@ router.post('/telecomics/:id/send',function (req, res, next) {
 });
 
 router.get('/telecomics/view/created', function (req, res, next) {
-  console.log(req.session.uId, '**')
   comics.find({owner_id: req.session.uId}).then(function (data) {
     res.render('created', {comics: data})
   })
@@ -167,4 +166,5 @@ router.get('/telecomics/:id', function (req, res, next) {
       languages:comicMaster.languages});
   });
 });
-  module.exports=router;
+
+module.exports=router;
