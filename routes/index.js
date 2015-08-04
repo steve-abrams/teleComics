@@ -6,28 +6,28 @@ var bcrypt= require('bcrypt');
 var db = require('monk')(process.env.MONGOLAB_URI);
 var users = db.get('users');
 var comics = db.get('comics');
-var transcomics = db.get('transcomics')
+var transcomics = db.get('transcomics');
 var helpers = require('../lib/logic');
 
 router.get('/', function(req, res, next) {
-  var comicMaster = {}
+  var comicMaster = {};
   if (!req.session.uId) {
     transcomics.find().then(function (telecomics) {
       var comicIds = telecomics.map(function (comic) {
-        return comic.comicId
-      })
-      var promiseArray = []
+        return comic.comicId;
+      });
+      var promiseArray = [];
       comicIds.forEach(function (comicId) {
-        promiseArray.push(comics.findOne({_id: comicId}))
-      })
-      console.log(comicIds)
-      comicMaster = telecomics
-      return Promise.all(promiseArray)
+        promiseArray.push(comics.findOne({_id: comicId}));
+      });
+      console.log(comicIds);
+      comicMaster = telecomics;
+      return Promise.all(promiseArray);
     }).then(function (comicsArray) {
       console.log(comicsArray);
       comicMaster.forEach(function (ele, i) {
         ele.panes = comicsArray[i].panes
-      })
+      });
       console.log(comicMaster, "comicfind")
       comicMaster.reverse()
       comicMaster = comicMaster.splice(0,10)
@@ -89,10 +89,10 @@ router.get('/telecomics/:id/public', function (req, res, next) {
     comicMaster.panes = comic.panes;
     comicMaster.title = comic.title;
     console.log(comicMaster)
-    res.render('show', {comic:comicMaster, 
-      panes: comicMaster.panes, 
-      blurbs: comicMaster.blurbs, 
-      panes: comicMaster.panes, 
+    res.render('show', {comic:comicMaster,
+      panes: comicMaster.panes,
+      blurbs: comicMaster.blurbs,
+      panes: comicMaster.panes,
       languages:comicMaster.languages});
   });
 });

@@ -20,7 +20,7 @@ block content
       a(href='/telecomics/new') Create new Telecomic!
       p
       a(href='/') Telecomics!
-      h1 Your Recieved Telecomics
+      h1 Your Received Telecomics
         each comic in comics
           h2= comic.title
           a(href='/telecomics/#{comic._id}/resend') Forward Comic

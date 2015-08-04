@@ -2,6 +2,11 @@ extends ../layout
 
 block content
   h1 Signup
+  if (errorlist)
+       div
+        ul 
+         for item in errorlist
+          li= item
   form(action="/teleComics/signup", method="post")
    label(for="email") Enter Your Email: 
    p   
@@ -12,3 +17,4 @@ block content
    input(type="password" name="password" id="password")
    p
    input(type="submit" value="Signup")
+  
