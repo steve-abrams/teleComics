@@ -26,11 +26,7 @@ router.post('/teleComics/signup', function(req, res, next){
           req.session.user=req.body.email;
           req.session.uId=user._id;
           res.redirect('/');
-<<<<<<< HEAD
-        })
-=======
         });
->>>>>>> e2de4811862867ad646b2bd622a8f0484251702c
     } else {
       users.insert({email:req.body.email, password:hash}).then(function (data) {
         req.session.user=req.body.email;
