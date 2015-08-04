@@ -3,16 +3,7 @@ extends ../layout
 block content
   if(!currentUser)
     h1 TeleComics
-    form.login(action="/teleComics/login", method="post")
-      label(for="email") Enter Your Email: 
-      input(type="text" name="email" id="email")
-      p 
-      p= message
-      label(id="password") Enter Your Password: 
-      input(type="password" name="password" id="password")
-      p= statement
-      input(type="submit", value="Login")
-    p
+    h4 Create three panel comics with silly comments and translate them through five different languages before sending them to your friends! 
     a(href="/teleComics/signup") Signup
     each comic in comics
       h2= comic.title
@@ -33,11 +24,6 @@ block content
   
   if(currentUser)
     h1 Your Sent Telecomics
-    a(href='/telecomics/new') Create new Telecomic!
-    p
-    a(href='/telecomics/view/created') My Comics!
-    p
-    a(href='/telecomics/recieved') Recieved Telecomics!
       each comic in comics
         h2= comic.title
         a(href="/telecomics/"+comic._id)
@@ -54,7 +40,3 @@ block content
               div.pane
                 img.paneImage(src=comic.panes[2].imageSource)
               div.comment=comic.blurbs[2]
-    
-    
-    form(action="/teleComics/logout", method="post")
-      input(type="submit", name="logout", id="logout", value="Logout!")
