@@ -97,4 +97,28 @@ router.get('/telecomics/:id/public', function (req, res, next) {
   });
 });
 
+router.get('/telecomics/feed', function (req, res, next) {
+  transcomics.find().then(function (telecomics) {
+    var comicIds = telecomics.map(function (comic) {
+      return comic.comicId;
+    });
+    var promiseArray = [];
+    comicIds.forEach(function (comicId) {
+      promiseArray.push(comics.findOne({_id: comicId}));
+    });
+    console.log(comicIds);
+    comicMaster = telecomics;
+    return Promise.all(promiseArray);
+  }).then(function (comicsArray) {
+    console.log(comicsArray);
+    comicMaster.forEach(function (ele, i) {
+      ele.panes = comicsArray[i].panes
+    });
+    console.log(comicMaster, "comicfind")
+    comicMaster.reverse()
+    comicMaster = comicMaster.splice(0,10)
+    res.render('feed', {comics: comicMaster});
+  })
+})
+
 module.exports = router;
