@@ -2,18 +2,44 @@ extends layout
 
 block content
   h1= comic.title
-  if currentUser
-    a(href='/') Back Home
+  div.collum
+    span.left
+      button#original(type='button') Show Original
+  div.collum
+    if currentUser
+      a(href='/') Back Home
+  div.collum
+    span.right
+      button#languages(type='button') Show Translation Languages
+
   div#comic.row
     div.collum
       div.pane
         img.paneImage(src=panes[0].imageSource)
-      div.comment=blurbs[0]
+      div.comment.blurb=blurbs[0]
+      div.original.comment(style="display:none")= panes[0].comment
     div.collum
       div.pane
         img.paneImage(src=panes[1].imageSource)
-      div.comment=blurbs[1]
+      div.comment.blurb=blurbs[1]
+      div.original.comment(style="display:none")= panes[1].comment
     div.collum
       div.pane
         img.paneImage(src=panes[2].imageSource)
-      div.comment=blurbs[2]
+      div.comment.blurb=blurbs[2]
+      div.original.comment(style="display:none")= panes[2].comment
+    div.collum
+      div.language(style="display:none")
+        ul
+          each language in languages[0]
+            li= language
+    div.collum
+      div.language(style="display:none")
+        ul
+          each language in languages[1]
+            li.languageStuff= language
+    div.collum
+      div.language(style="display:none")
+        ul
+          each language in languages[2]
+            li= language
