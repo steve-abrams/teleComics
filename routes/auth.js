@@ -19,7 +19,7 @@ router.post('/teleComics/signup', function(req, res, next){
         users.update({_id: user._id}, {$set: {password: hash}}).then(function (data) {
           console.log(data)
           req.session.user=req.body.email;
-          req.session.uId=data._id;
+          req.session.uId=user._id;
           res.redirect('/');
         })
     } else {
