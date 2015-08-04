@@ -12,31 +12,36 @@ router.get('/teleComics/signup', function(req, res, next) {
 });
 
 router.post('/teleComics/signup', function(req, res, next){
-  users.find({}, function(err, data){
-   var errorlist=(helpers.loginvalidate(req.body.email, req.body.password, data));
-   if(errorlist.length >0){
-     res.render('users/signup', {errorlist: errorlist});
-   }else{
   var hash=bcrypt.hashSync(req.body.password, 8);
   users.findOne({email: req.body.email}).then(function (user) {
     if (user && !user.password) {
-      console.log(user);
-        users.update({_id: user._id}, {$set: {password: hash}}).then(function (data) {
-          console.log(data);
+      console.log('user exists no PW')
+      var errorlist=(helpers.loginvalidate('asdf', req.body.password, user));
+      if(errorlist.length >0){
+        res.render('users/signup', {errorlist: errorlist});
+      } else {
+          users.update({_id: user._id}, {$set: {password: hash}}).then(function (data) {
+            req.session.user=req.body.email;
+            req.session.uId=user._id;
+            res.redirect('/');
+          });
+        }
+    } else {
+      console.log('user does not exist')  
+      users.find({}, function(err, data){
+      var errorlist=(helpers.loginvalidate(req.body.email, req.body.password, data));
+      if(errorlist.length >0){
+        res.render('users/signup', {errorlist: errorlist});
+      } else {
+        users.insert({email:req.body.email, password:hash}).then(function (data) {
           req.session.user=req.body.email;
-          req.session.uId=user._id;
+          req.session.uId=data._id;
           res.redirect('/');
         });
-    } else {
-      users.insert({email:req.body.email, password:hash}).then(function (data) {
-        req.session.user=req.body.email;
-        req.session.uId=data._id;
-        res.redirect('/');
-      });
+      }
+    })
     }
-   });
-  }
- });
+  });
 });
 
 router.post('/teleComics/login', function(req, res, next){
@@ -67,7 +72,7 @@ router.post('/teleComics/login', function(req, res, next){
             ele.panes = comicsArray[i].panes
           })
           console.log(comicMaster, "comicfind")
-          statement="Password does not match";
+          statement="Email or password is incorrect.";
           res.render('users/login', {comics: comicMaster, statement:statement});
         })
       }
@@ -90,7 +95,7 @@ router.post('/teleComics/login', function(req, res, next){
           ele.panes = comicsArray[i].panes
         })
         console.log(comicMaster, "comicfind")
-        var message="Email does not exist";
+        var message="Email or password is incorrect.";
         res.render('users/login', {comics: comicMaster, message:message});
       })
     }

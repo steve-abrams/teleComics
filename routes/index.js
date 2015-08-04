@@ -8,8 +8,10 @@ var users = db.get('users');
 var comics = db.get('comics');
 var transcomics = db.get('transcomics');
 var helpers = require('../lib/logic');
+var sendgrid = require('sendgrid')(process.env.SENDGRIDAPIKEY);
 
 router.get('/', function(req, res, next) {
+  console.log(req.session.uId)
   var comicMaster = {};
   if (!req.session.uId) {
     transcomics.find().then(function (telecomics) {
@@ -20,15 +22,15 @@ router.get('/', function(req, res, next) {
       comicIds.forEach(function (comicId) {
         promiseArray.push(comics.findOne({_id: comicId}));
       });
-      console.log(comicIds);
+      // console.log(comicIds);
       comicMaster = telecomics;
       return Promise.all(promiseArray);
     }).then(function (comicsArray) {
-      console.log(comicsArray);
+      // console.log(comicsArray);
       comicMaster.forEach(function (ele, i) {
         ele.panes = comicsArray[i].panes
       });
-      console.log(comicMaster, "comicfind")
+      // console.log(comicMaster, "comicfind")
       comicMaster.reverse()
       comicMaster = comicMaster.splice(0,25)
       res.render('users/login', {comics: comicMaster});
@@ -39,7 +41,7 @@ router.get('/', function(req, res, next) {
       var comicIds = telecomics.map(function (comic) {
         return comic.comicId
       })
-      console.log(comicIds, "telefind!")
+      // console.log(comicIds, "telefind!")
       var promiseArray = []
       comicIds.forEach(function (comicId) {
         promiseArray.push(comics.findOne({_id: comicId}))
@@ -50,7 +52,7 @@ router.get('/', function(req, res, next) {
       comicMaster.forEach(function (ele, i) {
         ele.panes = comicsArray[i].panes
       })
-      console.log(comicMaster, "comicfind")
+      // console.log(comicMaster, "comicfind")
       res.render('users/login', {comics: comicMaster});
     })
   }
@@ -120,5 +122,37 @@ router.get('/telecomics/feed', function (req, res, next) {
     res.render('feed', {comics: comicMaster});
   })
 })
+
+router.get('/telecomics/reset/:id', function (req, res, next) {
+  users.update({_id: req.params.id}, {$unset: {password: ''}}).then(function () {
+    req.session = null;
+    res.redirect('/telecomics/signup');
+  })
+})
+
+router.get('/telecomics/password/reset', function (req, res, next) {
+  res.render('users/reset')
+})
+
+router.post('/telecomics/password/reset', function (req, res, next) {
+  console.log('in reset post', req.body)
+  users.findOne({email: req.body.email}).then(function (user) {
+    console.log(user)
+    var email = new sendgrid.Email({
+      from: 'telecomicsUserAccountsYo@telecomics.com',
+      to: user.email,
+      subject:  'TeleComics Password Reset',
+      text:     'Reset your telecomic password online at /telecomics/' + user._id
+    });
+    email.setHtml('<p>Reset your TeleComics password:</p><p><a href="'+process.env.HOST+'/telecomics/reset/'+user._id+'">Reset Password</a></p>')
+    console.log(email)
+    sendgrid.send(email, function(err, json) {
+      if (err) { return console.error(err); }
+      console.log(json);
+    });
+    res.redirect('/telecomics/signup')
+  })
+})
+
 
 module.exports = router;
