@@ -84,8 +84,12 @@ router.get('/telecomics/:id/public', function (req, res, next) {
     // console.log(comic);
     comicMaster.panes = comic.panes;
     comicMaster.title = comic.title;
-    // console.log(comicMaster);
-    res.render('show', {comic:comicMaster, panes: comicMaster.panes, blurbs: comicMaster.blurbs});
+    console.log(comicMaster)
+    res.render('show', {comic:comicMaster, 
+      panes: comicMaster.panes, 
+      blurbs: comicMaster.blurbs, 
+      panes: comicMaster.panes, 
+      languages:comicMaster.languages});
   });
 });
 
