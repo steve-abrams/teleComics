@@ -15,7 +15,6 @@ for (var i = 1; i < 4; i++) {
   panes.push(panesAll[i])
 }
 
-// panes = Array.prototype.splice.call(panes,1,3)
 
 
 document.body.addEventListener('change', function (e) {
@@ -31,36 +30,40 @@ document.body.addEventListener('keyup', function (e) {
   }
 })
 
-showOriginal.addEventListener('click', function () {
-  if (originalShown) {
-    for (var i = 0; i < originalComments.length; i++) {
-      originalComments[i].style.display = "none";
-      blurbs[i].style.display = "inline-block";
+if (showOriginal) {
+  showOriginal.addEventListener('click', function () {
+    if (originalShown) {
+      for (var i = 0; i < originalComments.length; i++) {
+        originalComments[i].style.display = "none";
+        blurbs[i].style.display = "inline-block";
+      }
+      originalShown = !originalShown;
+      showOriginal.innerHTML = "Show Original"
+    } else {
+      for (var i = 0; i < originalComments.length; i++) {
+        originalComments[i].style.display = "inline-block";
+        blurbs[i].style.display = "none";
+      }
+      originalShown = !originalShown;
+      showOriginal.innerHTML = "Show Blurbs"
     }
-    originalShown = !originalShown;
-    showOriginal.innerHTML = "Show Original"
-  } else {
-    for (var i = 0; i < originalComments.length; i++) {
-      originalComments[i].style.display = "inline-block";
-      blurbs[i].style.display = "none";
-    }
-    originalShown = !originalShown;
-    showOriginal.innerHTML = "Show Blurbs"
-  }
-})
+  })
+}
 
-showLanguage.addEventListener('click', function () {
-  if (languagesShown) {
-    for (var i = 0; i < languages.length; i++) {
-      languages[i].style.display = "none";
+if (showLanguage) {
+  showLanguage.addEventListener('click', function () {
+    if (languagesShown) {
+      for (var i = 0; i < languages.length; i++) {
+        languages[i].style.display = "none";
+      }
+      languagesShown = !languagesShown;
+      showLanguage.innerHTML = "Show Translation Languages"
+    } else {
+      for (var i = 0; i < languages.length; i++) {
+        languages[i].style.display = "inline-block";
+      }
+      languagesShown = !languagesShown;
+      showLanguage.innerHTML = "Hide Translation Languages"
     }
-    languagesShown = !languagesShown;
-    showLanguage.innerHTML = "Show Translation Languages"
-  } else {
-    for (var i = 0; i < languages.length; i++) {
-      languages[i].style.display = "inline-block";
-    }
-    languagesShown = !languagesShown;
-    showLanguage.innerHTML = "Hide Translation Languages"
-  }
-})
+  })
+}
