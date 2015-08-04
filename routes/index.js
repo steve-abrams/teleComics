@@ -139,7 +139,7 @@ router.post('/telecomics/password/reset', function (req, res, next) {
   users.findOne({email: req.body.email}).then(function (user) {
     console.log(user)
     var email = new sendgrid.Email({
-      from: 'telecomicsUserAccountsYo@telecomics.com',
+      from: 'rememberYourPasswordNoob@telecomics.com',
       to: user.email,
       subject:  'TeleComics Password Reset',
       text:     'Reset your telecomic password online at /telecomics/' + user._id
