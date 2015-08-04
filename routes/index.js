@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
       });
       console.log(comicMaster, "comicfind")
       comicMaster.reverse()
-      comicMaster = comicMaster.splice(0,10)
+      comicMaster = comicMaster.splice(0,25)
       res.render('users/login', {comics: comicMaster});
     })
   } else {
@@ -116,7 +116,7 @@ router.get('/telecomics/feed', function (req, res, next) {
     });
     console.log(comicMaster, "comicfind")
     comicMaster.reverse()
-    comicMaster = comicMaster.splice(0,10)
+    comicMaster = comicMaster.splice(0,25)
     res.render('feed', {comics: comicMaster});
   })
 })
