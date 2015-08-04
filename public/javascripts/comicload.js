@@ -20,5 +20,4 @@ $(document).ready(function () {
   var p = document.createElement('p');
   p.innerHTML = $('#comment3').val();
   $('.comment')[2].appendChild(p);
-
 });
