@@ -180,3 +180,9 @@ a {
 
 input, textarea {
   color: #0F0F0F; }
+
+button {
+  color: #0F0F0F; }
+
+#languages {
+  margin-left: 25px; }

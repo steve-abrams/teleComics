@@ -3,15 +3,12 @@ extends layout
 block content
   h1= comic.title
   div.collum
-    span.left
-      button#original(type='button') Show Original
+    button#original(type='button') Show Original
   div.collum
     if currentUser
       a(href='/') Back Home
   div.collum
-    span.right
-      button#languages(type='button') Show Translation Languages
-
+    button#languages(type='button') Show Translation Path
   div#comic.row
     div.collum
       div.pane
@@ -30,7 +27,7 @@ block content
       div.original.comment(style="display:none")= panes[2].comment
     div.collum
       div.language(style="display:none")
-        ul
+        ol
           each language in languages[0]
             li= language
     div.collum
