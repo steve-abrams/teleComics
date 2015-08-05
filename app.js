@@ -37,7 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 var setEmailLocal = function (req, res, next) {
   res.locals.currentUser = req.session.user;
-  // console.log(req.session.user, '!!!!!!!!!!!!');
+  res.locals.unreadCount = req.session.unreadCount;
+  console.log(res.locals);
   next();
 };
 

@@ -11,7 +11,7 @@ var helpers = require('../lib/logic');
 var sendgrid = require('sendgrid')(process.env.SENDGRIDAPIKEY);
 
 router.get('/', function(req, res, next) {
-  console.log(req.session.uId)
+  console.log(res.locals)
   var comicMaster = {};
   if (!req.session.uId) {
     transcomics.find().then(function (telecomics) {
@@ -60,8 +60,9 @@ router.get('/', function(req, res, next) {
 
 router.get('/telecomics/received', function (req, res, next) {
   users.findOne({_id: req.session.uId}).then(function (user) {
+    clearUnread(user)
+    req.session.unreadCount = 0;
     if (!user.received || user.received.length < 1){
-      console.log('hello')
       res.render('received', {empty: true})
     }
    return transcomics.find({_id:{$in:user.received}});
@@ -75,6 +76,7 @@ router.get('/telecomics/received', function (req, res, next) {
         comicMaster[i]._id = transcomicsArray[i]._id;
       }
       comicMaster.reverse();
+    
       res.render('received', {comics: comicMaster});
     });
   });
@@ -160,5 +162,30 @@ router.post('/telecomics/password/reset', function (req, res, next) {
   })
 })
 
+function clearUnread(user) {
+  return new Promise(function (success, fail) {
+    // console.log(user)
+    transcomics.find({_id: {$in: user.received}}).then(function (transcomicsArray) {
+      // console.log(transcomics)
+      var unread = 0
+      promiseArray = []
+      transcomicsArray.forEach(function (comic) {
+        var tempUnread = comic.unread;
+        comic.unread.forEach(function (entry, i) {
+          if (entry.email === user.email && !entry.read) {
+            console.log(tempUnread[i], '***************')
+            tempUnread[i].read = true;
+            console.log(tempUnread, 'after')
+            promiseArray.push(transcomics.update({_id: comic._id}, {$set: {unread: tempUnread}}))
+          }
+        })
+      })
+      console.log(promiseArray)
+      Promise.all(promiseArray).then(function (records) {
+        console.log(records, '!!!!!!!!!!!!')
+      })
+    })
+  })
+}
 
 module.exports = router;

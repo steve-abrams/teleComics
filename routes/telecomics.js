@@ -70,9 +70,16 @@ router.post('/telecomics/:id/send',function (req, res, next) {
           blurbArray.push(blurb.blurb)
           languageRoutes.push(blurb.languageRoute)
         });
-        return transcomics.insert({comicId: req.params.id, sentTo: emails, date: Date.now(), blurbs: blurbArray, languages: languageRoutes, owner: req.session.uId});
+        var unread = emails.map(function (email) {
+          var str = email.toString()
+          var obj = {}
+          obj.email = email;
+          obj.read = false;
+          return obj;
+        })
+        return transcomics.insert({comicId: req.params.id, sentTo: emails, date: Date.now(), 
+          blurbs: blurbArray, languages: languageRoutes, owner: req.session.uId, unread: unread,});
       }).then(function (record) {
-        console.log(record)
         var userCreate = [];
         record.sentTo.forEach(function (email) {
           userCreate.push(users.update({email: email}, {$set: {email: email}}, {upsert:true}))
@@ -82,7 +89,6 @@ router.post('/telecomics/:id/send',function (req, res, next) {
         })
         users.update({_id: req.session.uId}, {$push: {sent: record._id}})
         users.findOne({_id: req.session.uId}).then(function (user) {
-          console.log('attempting email')
           var email = new sendgrid.Email({
           from:     user.email,
           subject:  comicMaster.title,
@@ -129,10 +135,7 @@ router.post('/telecomics/:id/delete', function (req, res, next) {
 
 router.get('/telecomics/:id/resend', function (req, res, next) {
   transcomics.findOne({_id: req.params.id}).then(function (transcomic) {
-    console.log(transcomic);
     comics.findOne({_id: transcomic.comicId}).then(function (comic) {
-      console.log(comic);
-
       var data = {
         title: comic.title,
         pane1: comic.panes[0].imageSource,
@@ -142,8 +145,6 @@ router.get('/telecomics/:id/resend', function (req, res, next) {
         comment2: transcomic.blurbs[1],
         comment3: transcomic.blurbs[2],
       };
-      console.log(data);
-
       res.render('new', {data: data});
     })
   })
