@@ -4,7 +4,11 @@ block content
   if(!currentUser)
     h1 
       img.logo(src='/images/telecomicslogo.png' alt='logo')
-    h4 Create three panel comics with silly comments and translate them through five different languages before sending them to your friends!
+    h4
+      | Welcome to TeleComics!
+    h4 A TeleComic is a three panel comic with captions that have been
+      | run through several random language translators and then back to English.  You don't get to see the translations before sending,
+      | just like a game of telephone.
     if statement
       li
         ul= statement
