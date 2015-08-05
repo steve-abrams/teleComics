@@ -18,12 +18,14 @@ block content
   a(href="/telecomics/"+comic._id+"/edit") Edit Comic 
   form(action="/telecomics/"+comic._id+"/delete" method="post")
     button.btn(type="submit") Delete Comic
+  br
   form(action='/telecomics/'+comic._id+'/send' method='post')
     if error
      ul
       li.error= error
-    label(for='recipients') Recipents:
     p Enter one e-mail per line
+    label(for='recipients') Recipents:
     p
       textarea(name='recipients' id='recipients', class='recipients')
-    button.btn(type='submit') SEND
+    p NOTE: You will not see your blurbs translated UNTIL the send button is clicked with valid emails. 
+    button.btn(type='submit') TRANSLATE AND SEND
