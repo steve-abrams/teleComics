@@ -17,7 +17,7 @@ block content
       div.comment=comic.panes[2].comment
   a(href="/telecomics/"+comic._id+"/edit") Edit Comic 
   form(action="/telecomics/"+comic._id+"/delete" method="post")
-    button(type="submit") Delete Comic
+    button.btn(type="submit") Delete Comic
   form(action='/telecomics/'+comic._id+'/send' method='post')
     if error
      ul
@@ -25,5 +25,5 @@ block content
     label(for='recipients') Recipents:
     p Enter one e-mail per line
     p
-      textarea(name='recipients' id='recipients')
-    button(type='submit') SEND
+      textarea(name='recipients' id='recipients', class='recipients')
+    button.btn(type='submit') SEND

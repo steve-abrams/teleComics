@@ -109,12 +109,18 @@ a {
 .right {
   float: right; }
 
+<<<<<<< HEAD
+.recipients {
+  width: 250px;
+  height: 75px; }
+=======
 .menulogo {
   margin-top: -10px;
   height: 210%; }
 
 .logo {
   height: 150px; }
+
 
 html {
   font-size: 1em; }
