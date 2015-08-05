@@ -88,13 +88,13 @@ router.post('/telecomics/:id/send',function (req, res, next) {
           subject:  comicMaster.title,
           text:     'view your teleocomic online at /telecomics/' + record._id
           });
-          email.setHtml('<p>You have been sent a TeleComic!!!!!</p><p><a href="'+process.env.HOST+'/telecomics/'+record._id+'/public">View your comic</a></p>')
-          email.setTos(record.sentTo)
+          email.setHtml('<p>You have been sent a TeleComic!!!!!</p><p>TeleComics is a site where users can create three panel comics with silly comments and translate them through five different languages before sending them to your friends! Click on the link to see the comic sent to you by another user.</p><p><a href="'+process.env.HOST+'/telecomics/'+record._id+'/public">View your comic</a></p>');
+          email.setTos(record.sentTo);
           sendgrid.send(email, function(err, json) {
             if (err) { return console.error(err); }
             console.log(json);
           });
-        })
+        });
         res.redirect('/telecomics/'+record._id);
       });
     });
@@ -159,10 +159,10 @@ router.get('/telecomics/:id', function (req, res, next) {
     // console.log(comic);
     comicMaster.panes = comic.panes;
     comicMaster.title = comic.title;
-    res.render('show', {comic:comicMaster, 
-      panes: comicMaster.panes, 
-      blurbs: comicMaster.blurbs, 
-      panes: comicMaster.panes, 
+    res.render('show', {comic:comicMaster,
+      panes: comicMaster.panes,
+      blurbs: comicMaster.blurbs,
+      panes: comicMaster.panes,
       languages:comicMaster.languages});
   });
 });

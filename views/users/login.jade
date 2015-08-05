@@ -8,9 +8,13 @@ block content
     if statement
       li
         ul= statement
+        ul
+          a(href='/telecomics/password/reset') Reset Pasword
     if message
       li
         ul=message
+        ul
+          a(href='/telecomics/password/reset') Reset Pasword
     a(href="/teleComics/signup") Signup
     each comic in comics
       h2= comic.title

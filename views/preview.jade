@@ -17,7 +17,7 @@ block content
       div.comment=comic.panes[2].comment
   a(href="/telecomics/"+comic._id+"/edit") Edit Comic 
   form(action="/telecomics/"+comic._id+"/delete" method="post")
-   button(type="submit") Delete Comic
+    button(type="submit") Delete Comic
   form(action='/telecomics/'+comic._id+'/send' method='post')
     if error
      ul
