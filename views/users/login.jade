@@ -2,7 +2,8 @@ extends ../layout
 
 block content
   if(!currentUser)
-    h1 TeleComics
+    h1 
+      img.logo(src='/images/telecomicslogo.png' alt='logo')
     h4 Create three panel comics with silly comments and translate them through five different languages before sending them to your friends!
     if statement
       li

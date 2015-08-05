@@ -21,7 +21,7 @@ block content
   form(action='/telecomics/'+comic._id+'/send' method='post')
     if error
      ul
-      li= error
+      li.error= error
     label(for='recipients') Recipents:
     p Enter one e-mail per line
     p
