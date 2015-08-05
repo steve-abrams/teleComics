@@ -2,10 +2,13 @@ extends ../layout
 
 block content
   h1 Password Reset
+  if message
+    ul
+     li= message
   p
     form(method="post" action="/telecomics/password/reset")
       label(for='email') Enter your email:
       p
         div
-          input(type='text' placeholder='Enter your email' id='email' name='email')
+          input(type='email' placeholder='Enter your email' id='email' name='email')
       button.btn(type='submit') Reset Password
