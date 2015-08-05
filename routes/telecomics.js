@@ -167,12 +167,8 @@ router.get('/telecomics/:id', function (req, res, next) {
   });
 });
 
-// router.post('/telecomics/imagesearch', function (req, res, next) {
-//   res.redirect('http://images.google.com/images?q='+req.body.search+'&btnG=Search+Images')
-//   p
-//     form(method="post" action='/telecomics/imagesearch' target="_blank")
-//       input(type='text' name='search')
-//       button(type='submit') Submit
-// })
+router.post('/telecomics/imagesearch', function (req, res, next) {
+  res.redirect('http://images.google.com/images?q='+req.body.search+'&btnG=Search+Images')
+})
 
 module.exports=router;
