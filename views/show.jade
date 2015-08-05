@@ -3,12 +3,12 @@ extends layout
 block content
   h1= comic.title
   div.collum
-    button#original(type='button') Show Original
+    button.btn#original(type='button') Show Original
   div.collum
     if currentUser
       a(href='/') Back Home
   div.collum
-    button#languages(type='button') Show Translation Path
+    button.btn#languages(type='button') Show Translation Path
   div#comic.row
     div.collum
       div.pane

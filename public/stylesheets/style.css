@@ -109,6 +109,10 @@ a {
 .right {
   float: right; }
 
+.recipients {
+  width: 250px;
+  height: 75px; }
+
 html {
   font-size: 1em; }
 
