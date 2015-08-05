@@ -164,7 +164,7 @@ router.post('/telecomics/password/reset', function (req, res, next) {
         subject:  'TeleComics Password Reset',
         text:     'Reset your telecomic password online at /telecomics/reset/'+token
       });
-      email.setHtml('<p>Reset your TeleComics password:</p><p><a href="'+process.env.HOST+'/telecomics/reset/'+token+'">Reset Password</a></p>')
+      email.setHtml('<p>Reset your TeleComics password:</p><p><a href="'+process.env.HOST+'/telecomics/reset/'+token+'">Reset Password</a></p><p>This link will expire in 5 minutes</p>')
       console.log(email)
       sendgrid.send(email, function(err, json) {
         if (err) { return console.error(err); }
