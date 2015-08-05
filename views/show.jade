@@ -40,3 +40,6 @@ block content
         ul
           each language in languages[2]
             li= language
+  a.twitter-hashtag-button(href='https://twitter.com/intent/tweet?button_hashtag=TeleComics&text=Checkout%20My%20New%20TeleComic%20at%20https://protected-waters-5312.herokuapp.com/telecomics/' + comic._id + "/public", data-size='large', data-related='this_is_yR') Tweet #TeleComics
+  script.
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
