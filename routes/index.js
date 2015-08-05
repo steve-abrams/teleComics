@@ -137,20 +137,26 @@ router.get('/telecomics/password/reset', function (req, res, next) {
 router.post('/telecomics/password/reset', function (req, res, next) {
   console.log('in reset post', req.body)
   users.findOne({email: req.body.email}).then(function (user) {
-    console.log(user)
-    var email = new sendgrid.Email({
-      from: 'rememberYourPasswordNoob@telecomics.com',
-      to: user.email,
-      subject:  'TeleComics Password Reset',
-      text:     'Reset your telecomic password online at /telecomics/' + user._id
-    });
-    email.setHtml('<p>Reset your TeleComics password:</p><p><a href="'+process.env.HOST+'/telecomics/reset/'+user._id+'">Reset Password</a></p>')
-    console.log(email)
-    sendgrid.send(email, function(err, json) {
-      if (err) { return console.error(err); }
-      console.log(json);
-    });
-    res.redirect('/telecomics/signup')
+    if (!user){
+      req.flash('info', 'Email not found, please try to reset password again');
+      res.redirect('/telecomics/signup')
+    } else {
+      console.log(user)
+      var email = new sendgrid.Email({
+        from: 'rememberYourPasswordNoob@telecomics.com',
+        to: user.email,
+        subject:  'TeleComics Password Reset',
+        text:     'Reset your telecomic password online at /telecomics/' + user._id
+      });
+      email.setHtml('<p>Reset your TeleComics password:</p><p><a href="'+process.env.HOST+'/telecomics/reset/'+user._id+'">Reset Password</a></p>')
+      console.log(email)
+      sendgrid.send(email, function(err, json) {
+        if (err) { return console.error(err); }
+        console.log(json);
+      });
+      req.flash('info', 'An email has been sent with a link to reset your password');
+      res.redirect('/telecomics/signup')
+    }
   })
 })
 

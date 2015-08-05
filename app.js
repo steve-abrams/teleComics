@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(flash());
 var setEmailLocal = function (req, res, next) {
   res.locals.currentUser = req.session.user;
   // console.log(req.session.user, '!!!!!!!!!!!!');

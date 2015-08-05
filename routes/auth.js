@@ -8,7 +8,7 @@ var transcomics = db.get('transcomics');
 var helpers = require('../lib/logic');
 
 router.get('/teleComics/signup', function(req, res, next) {
-   res.render('users/signup');
+   res.render('users/signup', { messages: req.flash('info') });
 });
 
 router.post('/teleComics/signup', function(req, res, next){
@@ -27,7 +27,7 @@ router.post('/teleComics/signup', function(req, res, next){
           });
         }
     } else {
-      console.log('user does not exist')  
+      console.log('user does not exist')
       users.find({}, function(err, data){
       var errorlist=(helpers.loginvalidate(req.body.email, req.body.password, data));
       if(errorlist.length >0){
