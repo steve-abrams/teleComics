@@ -4,15 +4,18 @@ div.row.title
     input#title(type='text' name='title' value=(data ? data.title : ''))
 div.row
   div.collum
-    label(for='pane1') First Pane
+    label(for='pane1') First Pane  
+      a(href='https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=how+to+copy+an+image+URL' target='_blank') (Image URL)
     p
       input#pane1.panes(type='url' name='pane1' value=(data ? data.pane1 : ''))  
   div.collum
-    label(for='pane2') Second Pane
+    label(for='pane1') Second Pane 
+      a(href='https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=how+to+copy+an+image+URL' target='_blank') (Image URL)
     p
       input#pane2.panes(type='url' name='pane2' value=(data ? data.pane2 : ''))
   div.collum
-    label(for='pane3') Third Pane
+    label(for='pane1') Third Pane 
+      a(href='https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=how+to+copy+an+image+URL' target='_blank') (Image URL)
     p
       input#pane3.panes(type='url' name='pane3' value=(data ? data.pane3 : ''))
 div.row
