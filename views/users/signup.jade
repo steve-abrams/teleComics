@@ -2,6 +2,11 @@ extends ../layout
 
 block content
   h1 Signup
+  if messages
+    div
+      ul
+        each message in messages
+          li= message
   if (errorlist)
        div
         ul 
