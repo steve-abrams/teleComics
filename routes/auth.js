@@ -23,11 +23,18 @@ router.post('/teleComics/signup', function(req, res, next){
           users.update({_id: user._id}, {$set: {password: hash}}).then(function (data) {
             req.session.user=req.body.email;
             req.session.uId=user._id;
-            findUnreadByUser(user).then(function (unread) {
-              console.log(unread, " number unread")
-              req.session.unreadCount = unread
-              res.redirect("/");
-            })
+            users.findOne({_id: user._id}).then(function (data) {
+              console.log('here before redir')
+              if (data.received) {
+                findUnreadByUser(user).then(function (unread) {
+                  console.log(unread, " number unread")
+                  req.session.unreadCount = unread
+                  res.redirect("/");
+                })
+              }else{
+                res.redirect('/')
+              }
+            })  
           });
         }
     } else {

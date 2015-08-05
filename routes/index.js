@@ -126,10 +126,21 @@ router.get('/telecomics/feed', function (req, res, next) {
 })
 
 router.get('/telecomics/reset/:id', function (req, res, next) {
-  users.update({_id: req.params.id}, {$unset: {password: ''}}).then(function () {
-    req.session = null;
-    res.redirect('/telecomics/signup');
-  })
+  var userId = req.params.id.split('-')[0];
+  var token = req.params.id.split('-')[1];
+  var time = Date.now()
+  console.log(token, "is token", time, 'is time')
+  if (Number(token)+300000 > Number(time)) {
+    console.log(userId)
+    users.update({_id: userId}, {$unset: {password: ''}}).then(function () {
+      console.log('pw reset')
+      req.session = null;
+      res.redirect('/telecomics/signup');
+    })
+  }
+  else {
+    res.render('users/reset', {message: 'That token has expired, please resubmit your request.'})
+  }
 })
 
 router.get('/telecomics/password/reset', function (req, res, next) {
@@ -144,13 +155,16 @@ router.post('/telecomics/password/reset', function (req, res, next) {
       res.redirect('/telecomics/signup')
     } else {
       console.log(user)
+      var dateComponent = Date.now()
+      var token = user._id+'-'+dateComponent
+      console.log(token)
       var email = new sendgrid.Email({
         from: 'rememberYourPasswordNoob@telecomics.com',
         to: user.email,
         subject:  'TeleComics Password Reset',
-        text:     'Reset your telecomic password online at /telecomics/' + user._id
+        text:     'Reset your telecomic password online at /telecomics/reset/'+token
       });
-      email.setHtml('<p>Reset your TeleComics password:</p><p><a href="'+process.env.HOST+'/telecomics/reset/'+user._id+'">Reset Password</a></p>')
+      email.setHtml('<p>Reset your TeleComics password:</p><p><a href="'+process.env.HOST+'/telecomics/reset/'+token+'">Reset Password</a></p>')
       console.log(email)
       sendgrid.send(email, function(err, json) {
         if (err) { return console.error(err); }
